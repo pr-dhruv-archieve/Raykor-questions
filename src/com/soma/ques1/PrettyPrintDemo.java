@@ -22,25 +22,19 @@ public class PrettyPrintDemo {
 		boolean initial = true;
 		String prettyXML = "";
 
-		String spaces = "";
 		String[] lines = inputXML.split("\n");
 		for (String line : lines) {
 			if (start.matcher(line).matches()) {
-				//System.out.println(line + " -> Start");
 				prettyXML += line + "\n";
 				continue;
 			} else if (closing.matcher(line).matches()) {
 				indent--;
-				spaces = getIndent(indent);
-				//System.out.println(indent + "\"" + line + "\" -> closing");
-				prettyXML += spaces + line + "\n";
+				prettyXML += getIndent(indent) + line + "\n";
 
 			} else if (singleLine.matcher(line).matches()) {
 				if (flag)
 					indent++;
-				spaces = getIndent(indent);
-				prettyXML += spaces + line + "\n";
-				//System.out.println(indent + "\"" + line + "\" -> Single Line");
+				prettyXML += getIndent(indent) + line + "\n";
 				flag = false;
 				initial = true;
 
@@ -50,14 +44,10 @@ public class PrettyPrintDemo {
 				else
 					initial = false;
 				
-				spaces = getIndent(indent);
-				prettyXML += spaces + line + "\n";
-				//System.out.println(indent + "\"" + line + "\" -> opening");
+				prettyXML += getIndent(indent) + line + "\n";
 				flag = true;
 
 			}
-			// System.out.println(spaces + line);
-			spaces = "";
 		}
 		return prettyXML;
 	}
